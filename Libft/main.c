@@ -1,9 +1,9 @@
 #include "libft.h"  
 
 int main() {
-    char    a[] = "Hellow";
-    char    b[] = "World";
+    const char    a[]= "Hellow";
+    char    b = 'e';
 
-    printf("%zu", ft_strlcat(a, b, 10));
+    printf("%c", *ft_strchr(a, b));
     return (0);
     }

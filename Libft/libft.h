@@ -15,5 +15,9 @@ size_t ft_strlen(const char *s);
 void *ft_memset(void *s, int c, size_t n);
 size_t ft_strlcpy(char *dst, const char *src, size_t size);
 size_t  ft_strlcat(char *dst, const char *src, size_t size);
+char    ft_tolower(char *s);
+char *strchr(const char *str, int search_str);
+
+
 
 #endif
