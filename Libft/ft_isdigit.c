@@ -1,33 +1,20 @@
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emarles <emarles@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/11 14:24:09 by emarles           #+#    #+#             */
+/*   Updated: 2024/12/26 16:32:35 by emarles          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// converts to ASCII for check
-char *ft_itoa(int k)
-{
-    int i;
-    char    *c;
-    i = 0;
-    if (k < 0)
-    {
-        c[i] = "-";
-    }
-    else if(k <= 9)
-    {
-        ft_itoa(k / 10);
-        ft_itoa(k % 10);
-    }
-    else
-    {
-        c[i] = 
-    }
+#include "libft.h"
 
-    return c;
-}
 int	ft_isdigit(int n)
 {
-    return n;
-}
-int main()
-{ 
-    printf("d", ft_isdigit(123));
-    return 0;    
+	if (n >= '0' && n <= '9')
+		return (1);
+	return (0);
 }

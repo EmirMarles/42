@@ -1,32 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emarles <emarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/11 14:06:39 by emarles           #+#    #+#             */
-/*   Updated: 2024/12/26 17:48:09 by emarles          ###   ########.fr       */
+/*   Created: 2024/12/11 14:51:55 by emarles           #+#    #+#             */
+/*   Updated: 2024/12/26 16:31:48 by emarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	unsigned char	*str;
-	size_t			i;
+	void			*ptr;
+	size_t			size_to_allocate;
+	size_t			k;
+	unsigned char	*p;
 
-	str = (unsigned char *)s;
-	i = 0;
-	if (!s)
+	if (!size || !nmemb)
+		return (malloc(0));
+	size_to_allocate = nmemb * size;
+	if (nmemb != 0 && size_to_allocate / nmemb != size)
 	{
 		return (NULL);
 	}
-	while (i < n)
+	ptr = malloc(size_to_allocate);
+	if (ptr == NULL)
 	{
-		str[i] = (char)c;
-		i++;
+		return (NULL);
 	}
-	return (s);
+	p = (unsigned char *)ptr;
+	k = 0;
+	while (k < size_to_allocate)
+	{
+		p[k] = 0;
+		k++;
+	}
+	return (ptr);
 }
