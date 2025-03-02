@@ -6,7 +6,7 @@
 /*   By: emarles <emarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 14:18:26 by emarles           #+#    #+#             */
-/*   Updated: 2025/02/23 15:03:40 by emarles          ###   ########.fr       */
+/*   Updated: 2025/03/02 16:15:45 by emarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,30 @@ void	color_screen(t_window *data, int color) // fills in the image for it then t
 	}
 }
 
-// void	put_cube(t_window * data)
-// {
-// 	int	color;
+void	put_cube(t_window * data)
+{
+	int	color;
 
-// 	color = 0x00006699;
+	color = 0x00FFFFFF;
 
-// 	for (int y = 0; y < 10; ++y)
-// 	{
-// 		for (int x = 0; x < 10; ++x)
-// 		{
-// 			my_pixel_put(&data->cube, x , y , color);
-// 		}
-// 	}
+	for (int y = 0; y < 50; ++y)
+	{
+		for (int x = 0; x < 50; ++x)
+		{
+			my_pixel_put(&data->cube, x , y , color);
+		}
+	}
 	
-// }
+}
+
+void put_line(t_window *data)
+{
+	int		color;
+
+	color =	0x00FF66CC;
+
+	for (int y = 0; y < 100; ++y)
+	{
+		my_pixel_put(&data->line, data->line.x, data->line.y, color);
+	}
+}

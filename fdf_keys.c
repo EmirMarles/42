@@ -6,7 +6,7 @@
 /*   By: emarles <emarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 17:45:37 by emarles           #+#    #+#             */
-/*   Updated: 2025/02/23 15:04:12 by emarles          ###   ########.fr       */
+/*   Updated: 2025/03/02 16:12:40 by emarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,15 @@ int fdf_keyhook(int keycode, t_window *main)
     if (keycode == XK_w)
     {
         color_screen(main, 0xff0000);    
-        mlx_put_image_to_window(main->mlx_connection, main->mlx_win,main->img.img_ptr,0, 0); // pushes the image into the screen
+        mlx_put_image_to_window(main->mlx_connection, main->mlx_win,main->img.img_ptr,0, 0); // pushes the image to the screen
         draw_instructions(main);
     }
     else if (keycode == XK_s)
-        create_cube(main);
+    {
+        ft_calculate_position(main, 10);
+        put_line(main);
+        mlx_put_image_to_window(main->mlx_connection, main->mlx_win, main->line.img_ptr, main->line.x, main->line.y);
+    }
     return (0);
 }
 
@@ -46,7 +50,7 @@ static void fdf_close(t_window *win)
     t_window *main = (t_window *)(win); 
     
     mlx_loop_end(main->mlx_connection);
-    // mlx_destroy_window(main->mlx_connection, main->mlx_connection);
+    mlx_destroy_window(main->mlx_connection, main->mlx_win);
     mlx_destroy_display(main->mlx_connection);
     free(main->mlx_connection);
     exit(0);
@@ -54,8 +58,8 @@ static void fdf_close(t_window *win)
 
 static void create_cube(t_window *main)
 {
-    main->img.img_ptr = mlx_new_image(main->mlx_connection, 10, 10);
-    main->img.img_pixels_ptr = mlx_get_data_addr(main->mlx_connection, &main->cube.bits_per_pixel, &main->cube.line_len, &main->cube.endian);
+    main->cube.img_ptr = mlx_new_image(main->mlx_connection, 100, 100);
+    main->cube.img_pixels_ptr = mlx_get_data_addr(main->mlx_connection, &main->cube.bits_per_pixel, &main->cube.line_len, &main->cube.endian);
     // put_cube(main);
     mlx_put_image_to_window(main->mlx_connection, main->mlx_win, main->cube.img_ptr,0, 0); // pushes the image into the screen
 }

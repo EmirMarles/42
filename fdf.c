@@ -6,15 +6,14 @@
 /*   By: emarles <emarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 17:45:51 by emarles           #+#    #+#             */
-/*   Updated: 2025/02/23 15:04:49 by emarles          ###   ########.fr       */
+/*   Updated: 2025/03/02 16:10:38 by emarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int    display(void);
+static int    ft_display(void);
 static char *file_reading(char * file);
-
 
 int main(int argc, char*argv[])
 {
@@ -24,7 +23,7 @@ int main(int argc, char*argv[])
         return (0);
     }
     file_reading(argv[1]);
-    display();
+    ft_display();
     return (0);
 }
 
@@ -33,20 +32,24 @@ static char *file_reading(char *file)
     int fd;
     char *string;
     static char *buffer;
+    int size;
     
     fd = open(file, O_RDONLY);
     if (fd < 0)
         return (NULL);
     string = get_next_line(fd);
-    // printf("%s\n", string);
+    size = ft_line_len(string);
+    printf("%s\n", string);
+    printf("%i\n", size);
     free(string);
     close (fd);
     return (string);
 }
 
-static int    display()
+static int    ft_display()
 {
-    t_window  main;
+    // win structure
+    t_window  main; // everything should be saved here for manipulating the data
     
     main.mlx_connection = mlx_init();
     if (main.mlx_connection == NULL)
@@ -61,9 +64,14 @@ static int    display()
     main.img.img_ptr = mlx_new_image(main.mlx_connection, WIDTH, HEIGHT); //creating an image
     main.img.img_pixels_ptr = mlx_get_data_addr(main.img.img_ptr, &main.img.bits_per_pixel, &main.img.line_len, &main.img.endian); //memory info about the image
     
-    mlx_key_hook(main.mlx_win, fdf_keyhook, &main); // why do we give a reference to the struct though?
+    main.line.img_ptr = mlx_new_image(main.mlx_connection, 1, 50);
+    main.line.img_pixels_ptr = mlx_get_data_addr(main.line.img_ptr, &main.line.bits_per_pixel, &main.line.line_len, &main.line.endian); // creating a line 
+    // ft_render(main);
+    mlx_key_hook(main.mlx_win, fdf_keyhook, &main);
     mlx_mouse_hook(main.mlx_win, fdf_mouse, &main);
     mlx_loop(main.mlx_connection);
     return (0);
 }
+// separate function for rendering
 
+// so we need a struct for object on the screen separate from the main image pointer
