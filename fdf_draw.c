@@ -6,7 +6,7 @@
 /*   By: emarles <emarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 14:18:26 by emarles           #+#    #+#             */
-/*   Updated: 2025/03/02 16:15:45 by emarles          ###   ########.fr       */
+/*   Updated: 2025/03/09 15:30:39 by emarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void put_line(t_window *data)
 
 	color =	0x00FF66CC;
 
-	for (int y = 0; y < 100; ++y)
-	{
-		my_pixel_put(&data->line, data->line.x, data->line.y, color);
-	}
+	// for (int y = 0; y < data->dot.y; ++y)
+	// {
+		my_pixel_put(&data->dot, data->dot[0].x, data->dot[0].y, color);
+	// }
 }

@@ -6,14 +6,13 @@
 /*   By: emarles <emarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 17:45:37 by emarles           #+#    #+#             */
-/*   Updated: 2025/03/02 16:12:40 by emarles          ###   ########.fr       */
+/*   Updated: 2025/03/09 14:12:12 by emarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 static void fdf_close(t_window *main);
-static void create_cube(t_window *main);
 
 int fdf_keyhook(int keycode, t_window *main)
 {
@@ -30,7 +29,8 @@ int fdf_keyhook(int keycode, t_window *main)
     {
         ft_calculate_position(main, 10);
         put_line(main);
-        mlx_put_image_to_window(main->mlx_connection, main->mlx_win, main->line.img_ptr, main->line.x, main->line.y);
+        // here while loop also
+        mlx_put_image_to_window(main->mlx_connection, main->mlx_win, main->dot[0].img_ptr, main->dot[0].x, main->dot[0].y);
     }
     return (0);
 }
@@ -54,12 +54,4 @@ static void fdf_close(t_window *win)
     mlx_destroy_display(main->mlx_connection);
     free(main->mlx_connection);
     exit(0);
-}
-
-static void create_cube(t_window *main)
-{
-    main->cube.img_ptr = mlx_new_image(main->mlx_connection, 100, 100);
-    main->cube.img_pixels_ptr = mlx_get_data_addr(main->mlx_connection, &main->cube.bits_per_pixel, &main->cube.line_len, &main->cube.endian);
-    // put_cube(main);
-    mlx_put_image_to_window(main->mlx_connection, main->mlx_win, main->cube.img_ptr,0, 0); // pushes the image into the screen
 }

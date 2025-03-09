@@ -6,14 +6,14 @@
 /*   By: emarles <emarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 17:45:51 by emarles           #+#    #+#             */
-/*   Updated: 2025/03/02 16:10:38 by emarles          ###   ########.fr       */
+/*   Updated: 2025/03/09 14:07:08 by emarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int    ft_display(void);
-static char *file_reading(char * file);
+static int    ft_display(char *file);
+static int file_reading(char * file);
 
 int main(int argc, char*argv[])
 {
@@ -22,12 +22,11 @@ int main(int argc, char*argv[])
         printf("Not enough arguments\n");
         return (0);
     }
-    file_reading(argv[1]);
-    ft_display();
+    ft_display(argv[1]);
     return (0);
 }
 
-static char *file_reading(char *file)
+static int file_reading(char *file)
 {
     int fd;
     char *string;
@@ -40,16 +39,21 @@ static char *file_reading(char *file)
     string = get_next_line(fd);
     size = ft_line_len(string);
     printf("%s\n", string);
-    printf("%i\n", size);
+    printf("the size of the %i\n", size);
     free(string);
     close (fd);
-    return (string);
+    return (size);
 }
 
-static int    ft_display()
+static int    ft_display(char *file)
 {
-    // win structure
     t_window  main; // everything should be saved here for manipulating the data
+    int size;
+    int beginning;
+    
+    beginning = 0;
+    size = file_reading(file);
+    main.dot[size]; // array of dots
     
     main.mlx_connection = mlx_init();
     if (main.mlx_connection == NULL)
@@ -63,10 +67,14 @@ static int    ft_display()
     }
     main.img.img_ptr = mlx_new_image(main.mlx_connection, WIDTH, HEIGHT); //creating an image
     main.img.img_pixels_ptr = mlx_get_data_addr(main.img.img_ptr, &main.img.bits_per_pixel, &main.img.line_len, &main.img.endian); //memory info about the image
-    
-    main.line.img_ptr = mlx_new_image(main.mlx_connection, 1, 50);
-    main.line.img_pixels_ptr = mlx_get_data_addr(main.line.img_ptr, &main.line.bits_per_pixel, &main.line.line_len, &main.line.endian); // creating a line 
-    // ft_render(main);
+    //
+    // while loop here to create DOT pointers and get data of these DOT pointers
+    while (beginning < size)
+    {
+        main.dot[beginning].img_ptr = mlx_new_image(main.mlx_connection, 1, 1);
+        main.dot[beginning].img_pixels_ptr = mlx_get_data_addr(main.dot[beginning].img_ptr, &main.dot[beginning].bits_per_pixel, &main.dot[beginning].line_len, &main.dot[beginning].endian); // creating a dot
+        beginning++;
+    }// ft_render(main);
     mlx_key_hook(main.mlx_win, fdf_keyhook, &main);
     mlx_mouse_hook(main.mlx_win, fdf_mouse, &main);
     mlx_loop(main.mlx_connection);
